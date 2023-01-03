@@ -52,7 +52,6 @@ class AccommodationTourController extends BaseController
 
         //Request is valid, create new tour
         $tour = AccommodationTour::create([
-            'user_id' => $request->user_id,
             'tour_datetime' => Carbon::parse($request->tour_datetime)->toDatetimeString(),
             'accommodation_id' => $request->accommodation_id,
             'notes' => $request->notes,
