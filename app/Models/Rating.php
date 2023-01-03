@@ -9,6 +9,11 @@ class Rating extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'iam_rating', 'star_number', 'description', 'accommodation_id'
+        'star_number', 'description', 'accommodation_id', 'rated_by'
     ];
+
+    public function accommodation()
+    {
+        return $this->belongsTo(Accommodation::class, 'accommodation_id', 'id');
+    }
 }

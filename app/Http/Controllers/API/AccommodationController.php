@@ -6,7 +6,6 @@ use App\Models\Accommodation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,6 +28,7 @@ class AccommodationController extends BaseController
     {
         return $this->user
             ->accommodations()
+            ->with('ratings')
             ->get();
     }
 
@@ -79,7 +79,7 @@ class AccommodationController extends BaseController
      */
     public function show($id)
     {
-        $accommodation = $this->user->accommodations()->find($id);
+        $accommodation = $this->user->accommodations()->with('ratings')->find($id);
     
         if (!$accommodation) {
             return response()->json([

@@ -79,7 +79,7 @@ class AuthController extends BaseController
         return $this->sendResponse([
             'success' => true,
             'token' => $token,
-        ], 'User login successfully.');;
+        ], 'User login successfully.');
     }
 
     public function logout(Request $request)
