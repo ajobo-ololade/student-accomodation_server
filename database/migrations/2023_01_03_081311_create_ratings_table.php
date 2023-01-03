@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('rated_by');
             $table->unsignedBigInteger('accommodation_id');
             $table->integer('star_number');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
 
             $table->foreign('iam_rating')

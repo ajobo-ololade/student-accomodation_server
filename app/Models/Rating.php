@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rating extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'iam_rating', 'star_number', 'description', 'accommodation_id'
+    ];
 }
