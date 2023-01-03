@@ -1,6 +1,6 @@
 
 ## Setting Up Locally
 
- - composer install
+ - composer update
  - php artisan migrate --seed
  - php artisan serve
