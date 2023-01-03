@@ -39,9 +39,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::delete('accommodation_tours/delete/{tour}',  [AccommodationTourController::class, 'destroy']);
     // Messaging
     Route::get('messaging', [MessagingController::class, 'index']);
-    Route::get('messaging/{id}', [MessagingController::class, 'show']);
     Route::post('messaging/create', [MessagingController::class, 'store']);
-    Route::put('messaging/update/{message}',  [MessagingController::class, 'update']);
     Route::delete('messaging/delete/{message}',  [MessagingController::class, 'destroy']);
     // Rating
     Route::get('ratings', [RatingController::class, 'index']);

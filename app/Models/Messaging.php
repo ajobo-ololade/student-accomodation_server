@@ -11,4 +11,14 @@ class Messaging extends Model
     protected $fillable = [
         'agent_id', 'message', 'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function agent()
+    {
+        return $this->belongsTo(User::class, 'agent_id', 'id');
+    }
 }

@@ -5,10 +5,18 @@ namespace App\Http\Controllers\API;
 use App\Models\Messaging;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
-
+use JWTAuth;
+use Illuminate\Support\Facades\Validator;
 
 class MessagingController extends BaseController
 {
+    protected $user;
+
+    public function __construct()
+    {
+        $this->user = JWTAuth::parseToken()->authenticate();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,17 +24,10 @@ class MessagingController extends BaseController
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->user
+            ->messages()
+            ->with(['agent', 'user'])
+            ->get();
     }
 
     /**
@@ -37,41 +38,28 @@ class MessagingController extends BaseController
      */
     public function store(Request $request)
     {
-        //
-    }
+        //Validate data
+        $data = $request->only('agent_id', 'message');
+        $validator = Validator::make($data, [
+            'agent_id' => 'required|numeric',
+            'message' => 'required|string',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Messaging  $messaging
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Messaging $messaging)
-    {
-        //
-    }
+        //Send failed response if request is not valid
+        if ($validator->fails()) return $this->sendError('Validation Error.', $validator->errors());
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Messaging  $messaging
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Messaging $messaging)
-    {
-        //
-    }
+        //Request is valid, create new tour
+        $message = Messaging::create([
+            'agent_id' => $request->agent_id,
+            'message' => $request->message,
+            'user_id' => JWTAuth::User()->id,
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Messaging  $messaging
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Messaging $messaging)
-    {
-        //
+        //tour created, return success response
+        return $this->sendResponse([
+            'success' => true,
+            'data' => $message,
+        ], 'message created successfully.');
     }
 
     /**
@@ -82,6 +70,11 @@ class MessagingController extends BaseController
      */
     public function destroy(Messaging $messaging)
     {
-        //
+        Messaging::destroy($messaging);
+
+        return $this->sendResponse([
+            'success' => true,
+            'data' => $messaging,
+        ], 'message destroy successfully.');
     }
 }
