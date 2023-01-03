@@ -6,7 +6,6 @@ use App\Models\Rating;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use JWTAuth;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
 class RatingController extends BaseController
