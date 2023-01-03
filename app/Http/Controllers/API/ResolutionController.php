@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
-use App\Models\AccommodationTour;
+use App\Models\Resolution;
 use Illuminate\Http\Request;
+use App\Http\Controllers\API\BaseController as BaseController;
 
-class AccommodationTourController extends Controller
+
+class ResolutionController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +43,10 @@ class AccommodationTourController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AccommodationTour  $accommodationTour
+     * @param  \App\Models\Resolution  $resolution
      * @return \Illuminate\Http\Response
      */
-    public function show(AccommodationTour $accommodationTour)
+    public function show(Resolution $resolution)
     {
         //
     }
@@ -52,10 +54,10 @@ class AccommodationTourController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\AccommodationTour  $accommodationTour
+     * @param  \App\Models\Resolution  $resolution
      * @return \Illuminate\Http\Response
      */
-    public function edit(AccommodationTour $accommodationTour)
+    public function edit(Resolution $resolution)
     {
         //
     }
@@ -64,10 +66,10 @@ class AccommodationTourController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AccommodationTour  $accommodationTour
+     * @param  \App\Models\Resolution  $resolution
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AccommodationTour $accommodationTour)
+    public function update(Request $request, Resolution $resolution)
     {
         //
     }
@@ -75,10 +77,10 @@ class AccommodationTourController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AccommodationTour  $accommodationTour
+     * @param  \App\Models\Resolution  $resolution
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AccommodationTour $accommodationTour)
+    public function destroy(Resolution $resolution)
     {
         //
     }
