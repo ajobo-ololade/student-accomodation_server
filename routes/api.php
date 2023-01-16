@@ -18,12 +18,14 @@ use App\Http\Controllers\API\AccommodationController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('accommodations', [AccommodationController::class, 'index']);
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('logout', [AuthController::class, 'logout']);
-    Route::get('getUser', [AuthController::class, 'getUser']);
+    Route::post('getUser', [AuthController::class, 'getUser']);
     Route::get('accommodations', [AccommodationController::class, 'index']);
     Route::get('accommodations/{id}', [AccommodationController::class, 'show']);
     Route::post('accommodations/create', [AccommodationController::class, 'store']);
     Route::put('accommodations/update/{accommodation}',  [AccommodationController::class, 'update']);
     Route::delete('accommodations/delete/{accommodation}',  [AccommodationController::class, 'destroy']);
 });
+// Tymon\JWTAuth\Exceptions\JWTException: The token could not be parsed from the request in file C:\Users\User\Documents\SQI\level 3\accomodation-mgt\vendor\tymon\jwt-auth\src\JWT.php on line 179

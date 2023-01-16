@@ -54,7 +54,7 @@ class AuthController extends BaseController
         //valid credential
         $validator = Validator::make($credentials, [
             'email' => 'required|email',
-            'password' => 'required|string|min:6|max:50'
+            'password' => 'required|string'
         ]);
         //Send failed response if request is not valid
         if ($validator->fails()) {
@@ -94,7 +94,7 @@ class AuthController extends BaseController
             return response()->json(['error' => $validator->messages()], 200);
         }
 
-        //Request is validated, do logout        
+        //Request is validated, do logout
         try {
             JWTAuth::invalidate($request->token);
 

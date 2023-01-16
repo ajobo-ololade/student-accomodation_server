@@ -45,22 +45,27 @@ class AccommodationController extends BaseController
         $validator = Validator::make($data, [
             'hostel_address' => 'required|string',
             'amount' => 'required|numeric',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image' => 'required',
         ]);
-        
+
         //Send failed response if request is not valid
         if ($validator->fails()) {
             return response()->json(['error' => $validator->messages()], 200);
         }
-
-        $image_path = $request->file('image')->store('image', 'public');
+        $png_url = "perfil-".time().".jpg";
+        $path = public_path() . "/uploads/" . $png_url;
+        $img = $request['image'];
+        $img = substr($img, strpos($img, ",")+1);
+        $data = base64_decode($img);
+        $success = file_put_contents($path, $data);
+        // $image_path = $request->file('image')->store('image', 'public');
 
 
         //Request is valid, create new accommodation
         $accommodation = $this->user->accommodations()->create([
             'hostel_address' => $request->hostel_address,
             'amount' => $request->amount,
-            'image' => $image_path,
+            'image' => $path,
         ]);
 
         //Accommodation created, return success response
@@ -80,14 +85,14 @@ class AccommodationController extends BaseController
     public function show($id)
     {
         $accommodation = $this->user->accommodations()->find($id);
-    
+
         if (!$accommodation) {
             return response()->json([
                 'success' => false,
                 'message' => 'Sorry, accommodation not found.'
             ], 400);
         }
-    
+
         return $accommodation;
     }
 
@@ -107,7 +112,7 @@ class AccommodationController extends BaseController
             'amount' => 'required|numeric',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
-        
+
         //Send failed response if request is not valid
         if ($validator->fails()) {
             return response()->json(['error' => $validator->messages()], 200);
@@ -139,7 +144,7 @@ class AccommodationController extends BaseController
     public function destroy(Accommodation $accommodation)
     {
         $accommodation->delete();
-        
+
         return response()->json([
             'success' => true,
             'message' => 'Accommodation deleted successfully'
