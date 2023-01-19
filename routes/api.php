@@ -27,7 +27,7 @@ Route::get('accommodations/public', [PublicController::class, 'index']);
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::post('getUser', [AuthController::class, 'getUser']);
-    Route::post('updateUser', [AuthController::class, 'updateUser']);
+    Route::put('updateUser/{id}', [AuthController::class, 'updateUser']);
     // Accommodation
     Route::get('accommodations', [AccommodationController::class, 'index']);
     Route::get('accommodations/{id}', [AccommodationController::class, 'show']);

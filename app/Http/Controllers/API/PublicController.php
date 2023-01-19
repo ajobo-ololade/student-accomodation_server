@@ -23,7 +23,7 @@ class PublicController extends Controller
              //Accommodation get, return success response
         return response()->json([
             'success' => true,
-            'message' => 'Accommodation created successfully',
+            'message' => 'Accommodation reutured successfully',
             'data' => $accommodation
         ], Response::HTTP_OK);
     }

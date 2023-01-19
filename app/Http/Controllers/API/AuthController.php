@@ -84,9 +84,18 @@ class AuthController extends BaseController
 
     public function updateUser(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'user_name' => 'required',
+            'email' => 'required|email',
+            'role_id' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) return $this->sendError('Validation Error.', $validator->errors());
 
         $input = $request->all();
-        $user = User::update($input);
+        $user = User::where('id', $request->id)->update($input);
 
         return response()->json([
             'success' => true,

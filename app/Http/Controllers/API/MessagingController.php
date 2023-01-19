@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use JWTAuth;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
 
 class MessagingController extends BaseController
 {
@@ -64,7 +66,7 @@ class MessagingController extends BaseController
 
     public function getAgents()
     {
-        $agentlist = Messaging::where('role_id', 1)->paginate(100);
+        $agentlist = User::where('role_id', 1)->paginate(100);
 
              //Agent get, return success response
         return response()->json([
