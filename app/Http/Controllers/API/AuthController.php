@@ -50,10 +50,10 @@ class AuthController extends BaseController
      */
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('user_name', 'password');
         //valid credential
         $validator = Validator::make($credentials, [
-            'email' => 'required|email',
+            'user_name' => 'required|string',
             'password' => 'required|string'
         ]);
         //Send failed response if request is not valid
@@ -79,8 +79,22 @@ class AuthController extends BaseController
         return $this->sendResponse([
             'success' => true,
             'token' => $token,
-        ], 'User login successfully.');;
+        ], 'User login successfully.');
     }
+
+    public function updateUser(Request $request)
+    {
+
+        $input = $request->all();
+        $user = User::update($input);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Profile updated successfully',
+            'data' => $user
+        ], Response::HTTP_OK);
+    }
+
 
     public function logout(Request $request)
     {

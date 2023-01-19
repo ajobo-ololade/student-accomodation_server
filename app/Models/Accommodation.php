@@ -11,4 +11,9 @@ class Accommodation extends Model
     protected $fillable = [
         'hostel_address', 'amount', 'image'
     ];
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'accommodation_id', 'id');
+    }
 }
