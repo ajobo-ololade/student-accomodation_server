@@ -9,7 +9,7 @@ class Accommodation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'hostel_address', 'amount', 'image'
+        'hostel_address', 'amount', 'image', 'info', 'facilities',
     ];
 
     public function ratings()

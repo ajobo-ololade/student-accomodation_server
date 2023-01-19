@@ -132,6 +132,9 @@ class AuthController extends BaseController
 
         $user = JWTAuth::authenticate($request->token);
 
-        return response()->json(['user' => $user]);
+        return response()->json([
+            'user' => $user,
+            'success' => true
+        ]);
     }
 }
